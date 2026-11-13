@@ -68,3 +68,21 @@ Console.WriteLine($"Cashier's check from account 2: {check}, balance = {account2
 
 account3.ApplyRefund(50);
 Console.WriteLine($"Account 3 after refund: balance = {account3.Balance}");
+
+Console.WriteLine("\nDemonstrating named and optional parameters...");
+
+// Seulement l'ID du client : balance = 200 et type = Checking par défaut
+BankAccount account4 = new BankAccount(customer1.CustomerId);
+Console.WriteLine(account4.DisplayAccountInfo());
+
+// ID + solde : le type reste Checking
+BankAccount account5 = new BankAccount(customer1.CustomerId, 1500);
+Console.WriteLine(account5.DisplayAccountInfo());
+
+// ID + type donné par son nom : le solde reste 200
+BankAccount account6 = new BankAccount(customer2.CustomerId, accountType: "Savings");
+Console.WriteLine(account6.DisplayAccountInfo());
+
+// Tout en paramètres nommés, dans un ordre différent
+BankAccount account7 = new BankAccount(accountType: "Checking", balance: 5000, customerIdNumber: customer2.CustomerId);
+Console.WriteLine(account7.DisplayAccountInfo());

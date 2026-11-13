@@ -26,7 +26,7 @@ public class BankAccount
         MaxOverdraftFee = 10;
     }
 
-    public BankAccount(string customerIdNumber, double balance, string accountType)
+    public BankAccount(string customerIdNumber, double balance = 200, string accountType = "Checking")
     {
         this.AccountNumber = s_nextAccountNumber++;
         this.CustomerId = customerIdNumber;

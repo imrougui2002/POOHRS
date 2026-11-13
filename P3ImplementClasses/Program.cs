@@ -86,3 +86,21 @@ Console.WriteLine(account6.DisplayAccountInfo());
 // Tout en paramètres nommés, dans un ordre différent
 BankAccount account7 = new BankAccount(accountType: "Checking", balance: 5000, customerIdNumber: customer2.CustomerId);
 Console.WriteLine(account7.DisplayAccountInfo());
+
+Console.WriteLine("\nDemonstrating object initializers and copy constructors...");
+
+// Initialiseur d'objet : on règle les propriétés dans le même statement
+BankCustomer customer4 = new BankCustomer("Mikaela", "Lee") { FirstName = "Mikaela", LastName = "Lee" };
+Console.WriteLine($"BankCustomer 4: {customer4.FirstName} {customer4.LastName} {customer4.CustomerId}");
+
+// Constructeur de copie : customer5 est une copie de customer4
+BankCustomer customer5 = new BankCustomer(customer4);
+Console.WriteLine($"BankCustomer 5 (copy of customer4): {customer5.FirstName} {customer5.LastName} {customer5.CustomerId}");
+
+// Initialiseur d'objet sur un compte
+BankAccount account8 = new BankAccount(customer4.CustomerId) { AccountType = "Savings" };
+Console.WriteLine($"Account 8: Account # {account8.AccountNumber}, type {account8.AccountType}, balance {account8.Balance}, customer ID {account8.CustomerId}");
+
+// Constructeur de copie : account9 est une copie de account4
+BankAccount account9 = new BankAccount(account4);
+Console.WriteLine($"Account 9 (copy of account4): Account # {account9.AccountNumber}, type {account9.AccountType}, balance {account9.Balance}, customer ID {account9.CustomerId}");

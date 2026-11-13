@@ -32,4 +32,12 @@ public partial class BankCustomer
         this.CustomerId = (s_nextCustomerId++).ToString("D10");
     }
 
+    // Constructeur de copie
+    public BankCustomer(BankCustomer existingCustomer)
+    {
+        this.FirstName = existingCustomer.FirstName;
+        this.LastName = existingCustomer.LastName;
+        this.CustomerId = (s_nextCustomerId++).ToString("D10");
+    }
+
 }

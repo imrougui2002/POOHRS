@@ -34,6 +34,15 @@ public class BankAccount
         this.AccountType = accountType;
     }
 
+    // Constructeur de copie
+    public BankAccount(BankAccount existingAccount)
+    {
+        this.AccountNumber = s_nextAccountNumber++;
+        this.CustomerId = existingAccount.CustomerId;
+        this.Balance = existingAccount.Balance;
+        this.AccountType = existingAccount.AccountType;
+    }
+
     public void Deposit(double amount)
     {
         if (amount > 0)

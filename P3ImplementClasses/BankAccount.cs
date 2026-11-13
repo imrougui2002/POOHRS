@@ -3,7 +3,12 @@ namespace P3ImplementClasses;
 public class BankAccount
 {
     private static int s_nextAccountNumber;
-    public static double InterestRate;
+
+    public static double InterestRate { get; private set; }
+    public static double TransactionRate { get; private set; }
+    public static double MaxTransactionFee { get; private set; }
+    public static double OverdraftRate { get; private set; }
+    public static double MaxOverdraftFee { get; private set; }
 
     public int AccountNumber { get; }
     public string CustomerId { get; }
@@ -14,13 +19,11 @@ public class BankAccount
     {
         Random random = new Random();
         s_nextAccountNumber = random.Next(10000000, 20000000);
-        InterestRate = 0;
-    }
-
-    public BankAccount(string customerIdNumber)
-    {
-        this.AccountNumber = s_nextAccountNumber++;
-        this.CustomerId = customerIdNumber;
+        InterestRate = 0.00;
+        TransactionRate = 0.01;
+        MaxTransactionFee = 10;
+        OverdraftRate = 0.05;
+        MaxOverdraftFee = 10;
     }
 
     public BankAccount(string customerIdNumber, double balance, string accountType)
@@ -59,9 +62,25 @@ public class BankAccount
         return false;
     }
 
-    public void ApplyInterest()
+    public void ApplyInterest(double years)
     {
-        Balance += Balance * InterestRate;
+        Balance += AccountCalculations.CalculateCompoundInterest(Balance, InterestRate, years);
+    }
+
+    public bool IssueCashiersCheck(double amount)
+    {
+        if (amount > 0 && Balance >= amount + BankAccount.MaxTransactionFee)
+        {
+            Balance -= amount;
+            Balance -= AccountCalculations.CalculateTransactionFee(amount, BankAccount.TransactionRate, BankAccount.MaxTransactionFee);
+            return true;
+        }
+        return false;
+    }
+
+    public void ApplyRefund(double refund)
+    {
+        Balance += refund;
     }
 
     public string DisplayAccountInfo()

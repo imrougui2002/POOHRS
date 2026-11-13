@@ -18,7 +18,7 @@ Console.WriteLine($"BankCustomer 2: {customer2.FirstName} {customer2.LastName} {
 Console.WriteLine($"BankCustomer 3: {customer3.FirstName} {customer3.LastName} {customer3.CustomerId}");
 
 Console.WriteLine("\nCreating BankAccount objects for customers...");
-BankAccount account1 = new BankAccount(customer1.CustomerId);
+BankAccount account1 = new BankAccount(customer1.CustomerId, 1000, "Checking");
 BankAccount account2 = new BankAccount(customer2.CustomerId, 1500, "Checking");
 BankAccount account3 = new BankAccount(customer3.CustomerId, 2500, "Checking");
 
@@ -47,7 +47,7 @@ Console.WriteLine($"Account 3 after transfer: Balance = {account3.Balance}, Tran
 Console.WriteLine($"Account 1 after receiving transfer: Balance = {account1.Balance}");
 
 Console.WriteLine("Applying interest to Account 1...");
-account1.ApplyInterest();
+account1.ApplyInterest(30 / 365.0);
 Console.WriteLine($"Account 1 after applying interest: Balance = {account1.Balance}");
 
 Console.WriteLine("\nDemonstrating extension methods...");
@@ -59,3 +59,12 @@ Console.WriteLine($"Is account3 overdrawn? {account3.IsOverdrawn()}");
 Console.WriteLine("\nDisplaying customer and account information...");
 Console.WriteLine(customer1.DisplayCustomerInfo());
 Console.WriteLine(account1.DisplayAccountInfo());
+Console.WriteLine("\nDemonstrating new methods...");
+double fee = AccountCalculations.CalculateTransactionFee(800, BankAccount.TransactionRate, BankAccount.MaxTransactionFee);
+Console.WriteLine($"Transaction fee for 800: {fee}");
+
+bool check = account2.IssueCashiersCheck(500);
+Console.WriteLine($"Cashier's check from account 2: {check}, balance = {account2.Balance}");
+
+account3.ApplyRefund(50);
+Console.WriteLine($"Account 3 after refund: balance = {account3.Balance}");
